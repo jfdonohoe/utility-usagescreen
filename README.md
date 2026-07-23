@@ -25,6 +25,10 @@ Supported operating systems : macOS, Windows, Linux (incl. Raspberry Pi), basica
 | <img src="res/docs/turing.webp" width="45%"/> <img src="res/docs/turing5inch.png" width="45%"/> |
 | Also improperly called "revision A" by resellers. Official forum: http://discuz.turzx.com/ |
 
+**In use**, showing live Claude usage data (5-hour / weekly / context remaining):
+
+<img src="res/docs/turzx-in-use.png" width="45%"/>
+
 If you haven't received your screen yet but want to start developing your theme now, you can use the [**"simulated LCD" mode!**](https://github.com/mathoudebine/turing-smart-screen-python/wiki/Simulated-display)
 
 ### Why a custom refresh policy (`claude-display.py`)
