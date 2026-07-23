@@ -32,6 +32,24 @@ To work around that, `claude-display.py` uses a deliberately conservative refres
 
 Net effect: the screen updates just often enough to stay useful, while the slow/cheap panel's redraw quirks are hidden rather than amplified.
 
+### 🚧 Project status: abandoned in favor of a terminal statusline
+
+**This physical-screen approach was eventually abandoned** as the way to track Claude usage. Even with the dimming/redraw-on-change policy above, a second physical display was more overhead than it was worth for something you glance at constantly while already looking at the terminal — so usage tracking moved to a **Claude Code terminal statusline** instead.
+
+<img src="res/docs/claude-quota-statusline.png" width="70%"/>
+
+What it's made of:
+
+* **A Claude Code `statusLine` hook** — configured in `~/.claude/settings.json` (`type: "command"`, refreshed every 30s), pointing at a script that Claude Code invokes and pipes its status JSON into via stdin.
+* **`claude-quota-statusline.sh`**, a small Bash script that:
+  * Parses the incoming JSON with `jq` — model name, current/project directory, and rate-limit percentages (`five_hour`, `seven_day`) plus context window usage.
+  * Hashes the project directory name into a fixed 20-color ANSI palette so every project gets a stable, distinct colored `●` badge with zero per-project config.
+  * Re-derives "percent remaining" for the 5-hour window, weekly window, and context window, and color-codes each: green (>50% left) → amber (25-50%) → red (≤25%) → bold red (≤10%).
+  * Writes a normalized snapshot to `~/.claude/quota-meter/current.json` on every refresh — the same file `claude-display.py` used to poll, so the statusline is effectively a drop-in replacement for that data feed, just rendered inline in the terminal prompt instead of on a second screen.
+* **Output format**: `● <project> | Claude <model> | 5h X% | week Y% | ctx Z%`, printed directly under the command line on every prompt.
+
+The `claude-display.py` code and TURZX screen support in this repo are kept for reference / anyone who still wants a physical display, but the actively used solution today is the statusline.
+
 ## How to start
 
 ### [> Follow instructions on the wiki to configure and start this project.](https://github.com/mathoudebine/turing-smart-screen-python/wiki)
