@@ -37,7 +37,7 @@ The TURZX screen was chosen mainly because it's **sub-$10** — but that comes w
 
 To work around that, `claude-display.py` uses a deliberately conservative refresh policy designed to **minimize distracting visuals**:
 
-* **Polls, doesn't stream**: the data file (`~/.claude/quota-meter/current.json`) is checked every **10 seconds** — not redrawn continuously.
+* **Polls, doesn't stream**: the data file (`~/.claude/quota-meter/current.json`) is checked every **30 seconds** — not redrawn continuously.
 * **Redraws only on change**: each poll computes a signature from the snapshot data plus its stale/active state; the screen is only repainted when that signature actually changes, so unchanged data never causes a flicker.
 * **Staleness-aware dimming**: if no fresh data has arrived in **180 seconds (3 minutes)**, the display is considered stale and its brightness drops from **18 (active) to 4 (idle)**, fading into the background instead of staying eye-catchingly bright.
 * **Clean shutdown**: brightness is set to **0** when the process exits, so the low-refresh panel doesn't linger on a stale frame.
