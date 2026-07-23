@@ -45,13 +45,13 @@ Example output:
        "type": "command",
        "command": "~/.claude/claude-quota-statusline.sh",
        "padding": 1,
-       "refreshInterval": 30
+       "refreshInterval": 5
      }
    }
    ```
    If `~/.claude/settings.json` already has other keys, merge this in rather than overwriting the file.
 
-3. **Start (or restart) a Claude Code session.** The statusline appears under the command line on the next prompt render and refreshes every 30 seconds.
+3. **Start (or restart) a Claude Code session.** The statusline appears under the command line on the next prompt render and refreshes every 5 seconds, in addition to event-driven refreshes (new assistant message, `/compact`, permission-mode changes, vim-mode toggles).
 
 4. **Verify it's working:**
    ```bash
