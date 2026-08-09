@@ -80,12 +80,22 @@ color_for_left() {
 }
 
 fmt_left() {
-  local label="$1" left="$2"
-  printf "%s%s %s%%\033[0m" "$(color_for_left "$left")" "$label" "$left"
+  local label="$1" left="$2" reset="$3"
+  if [[ -n "$reset" ]]; then
+    printf "%s%s %s%% (resets %s)\033[0m" "$(color_for_left "$left")" "$label" "$left" "$reset"
+  else
+    printf "%s%s %s%%\033[0m" "$(color_for_left "$left")" "$label" "$left"
+  fi
 }
+
+five_reset_fmt=""
+[[ "$five_reset" != "0" ]] && five_reset_fmt="$(date -r "$five_reset" "+%-I:%M %p" 2>/dev/null || true)"
+
+week_reset_fmt=""
+[[ "$week_reset" != "0" ]] && week_reset_fmt="$(date -r "$week_reset" "+%a %-I:%M %p" 2>/dev/null || true)"
 
 printf "%s | Claude %s | %s | %s | %s\n" \
   "$project_badge" "$model" \
-  "$(fmt_left "5h" "$five_left")" \
-  "$(fmt_left "week" "$week_left")" \
-  "$(fmt_left "ctx" "$context_left")"
+  "$(fmt_left "5h" "$five_left" "$five_reset_fmt")" \
+  "$(fmt_left "week" "$week_left" "$week_reset_fmt")" \
+  "$(fmt_left "ctx" "$context_left" "")"
