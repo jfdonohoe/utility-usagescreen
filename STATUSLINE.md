@@ -2,7 +2,7 @@
 
 This project originally tracked [Claude Code](https://claude.com/claude-code) usage on a physical [TURZX secondary screen](README.md). That approach was eventually abandoned in favor of showing the same data directly in the terminal, via a Claude Code **statusline** — a script Claude Code runs on every prompt and renders under the command line.
 
-<img src="res/docs/claude-quota-statusline.png" width="70%"/>
+
 
 Example output:
 
